@@ -7,8 +7,6 @@
 #include <string>
 #include "RPS2.h"
 
-extern "C" void CombSort_(double* Array, unsigned long long n);
-
 
 static void ShowArray(double* Array, unsigned long long n) {
     for (unsigned long long i = 0; i < n; i++) {
@@ -16,6 +14,7 @@ static void ShowArray(double* Array, unsigned long long n) {
         std::cout << Array[i] << '\n';
     }
 }
+
 
 static void CombSort(double* Array, unsigned long long n) {
     double GapFactor = n / FACTOR;
@@ -196,6 +195,147 @@ bool FileNameCheck(std::string FileName) {
     return FileIsCorrect;
 
 }
+bool DeleteFileData(std::string FileName) {
+    std::ofstream FileDataDeleter (FileName, std::ios::trunc);
+    if (FileDataDeleter.is_open()) {
+        FileDataDeleter.close();
+        return true;
+    }
+    else {
+        std::cout << "Стереть данные из файла не удалось, выберите другой файл для записи или попробуйте снова\n";
+        return false;
+    }
+}
+
+
+void SaveArrayToFile(double* Array, unsigned long long n) {
+    bool SaveArrayUserInput = true;
+    bool FileIsCorrect = true;
+    bool DataIsDeleted = false;
+    
+    while (SaveArrayUserInput) {
+        unsigned long long UserEraseFileChoice = 0;
+        DataIsDeleted = false;
+        std::string FileName;
+        std::cout << "Введите название файла: ";
+        std::getline(std::cin, FileName);
+        bool FileNameIsCorrect = FileNameCheck(FileName);
+
+        if (!FileNameIsCorrect) {
+            std::cout << "Название файла некорректно, введите, пожалуйста, корректное\n";
+            continue;
+        }
+        else {
+            std::ifstream CheckFileData(FileName);
+            if (CheckFileData.is_open()) {
+                CheckFileData.seekg(0, std::ios::end);
+                if (CheckFileData.tellg() == 0) {
+                    std::cout << "Файл пуст, приступаю к записи...\n";
+                    CheckFileData.close();
+
+                    std::ofstream ArrayDataSaveToFile(FileName);
+                    if (ArrayDataSaveToFile.is_open()) {
+                        ArrayDataSaveToFile << std::to_string(n);
+                        ArrayDataSaveToFile << '\n';
+                        for (unsigned long long i = 0; i < n; i++) {
+                            ArrayDataSaveToFile << std::to_string(Array[i]);
+                            if (n + 1 != n) {
+                                ArrayDataSaveToFile << ' ';
+                            }
+
+                        }
+                        ArrayDataSaveToFile.close();
+                        std::cout << "Данные успешно записаны в файл...\n";
+                        SaveArrayUserInput = false;
+                    }
+                    else {
+                        std::cout << "Файл для записи не открыт, попробуйте ввести название файла снова\n";
+                    }
+                }
+                else {
+                    CheckFileData.close();
+                    while (!DataIsDeleted) {
+                        std::cout << "Файл не пуст, стереть содержимое?\n1 - Да, cтереть\n2 - Нет, не стирать\n";
+                        std::cout << "Ваш выбор: ";
+                        UnsignedLongLongInput(UserEraseFileChoice);
+                        switch (UserEraseFileChoice) {
+                        case EraseFileData:
+                            DataIsDeleted = DeleteFileData(FileName);
+                            break;
+                        case DontEraseFileData:
+                            DataIsDeleted = true;
+                            break;
+                        default:
+                            std::cout << "Такого пункта не существует\n";
+
+                        }
+                    }
+                }
+            }
+            else {
+                std::cout << "Такого файла не существует или он не был открыт, создаю файл с таким названием...\n";
+                std::ofstream ArrayDataSaveToFile(FileName);
+                if (ArrayDataSaveToFile.is_open()) {
+                    ArrayDataSaveToFile << std::to_string(n);
+                    ArrayDataSaveToFile << '\n';
+                    for (unsigned long long i = 0; i < n; i++) {
+                        ArrayDataSaveToFile << std::to_string(Array[i]);
+                        if (i + 1 != n) {
+                            ArrayDataSaveToFile << ' ';
+                        }
+                        
+                        
+
+                    }
+                    ArrayDataSaveToFile.close();
+                    std::cout << "Данные успешно записаны в файл...\n";
+                    SaveArrayUserInput = false;
+                }
+
+            }
+
+        }
+
+
+    }
+
+}
+
+void SaveArraysToFile(double* Array, unsigned long long n, double* SortedArray) {
+    SaveArrayToFile(Array, n);
+    SaveArrayToFile(SortedArray, n);
+}
+
+void SaveArrayInFileInterface(double* Array, unsigned long long n, double* SortedArray) {
+    unsigned long long UserLoadArrayChoice = 0;
+    bool UserFileLoad = true;
+
+    while (UserFileLoad) {
+        std::cout << "Выберите один из пунктов:\n1 - Сохранить исходный массив в файл\n2 - Сохранить отсортированный массив в файл\n3 - Сохранить оба массива в файлы\n4 - Ничего не сохранять\n";
+        std::cout << "Ваш выбор: ";
+        UnsignedLongLongInput(UserLoadArrayChoice);
+
+        switch (UserLoadArrayChoice) {
+            case SaveArray :
+                SaveArrayToFile(Array, n);
+                UserFileLoad = false;
+                break;
+            case SaveSortedArray:
+                SaveArrayToFile(SortedArray, n);
+                UserFileLoad = false;
+                break;
+            case SaveBoth:
+                SaveArraysToFile(Array, n, SortedArray);
+                break;
+            case DontSave:
+                UserFileLoad = false;
+                break;
+            default:
+                std::cout << "Такого пункта не существует, введите новый\n";
+
+        }
+    }
+}
 
 static std::pair<double*, unsigned long long> InputArrayFromFile(std::string FileName) {
     std::ifstream CheckArrayFromFile;
@@ -228,6 +368,7 @@ static std::pair<double*, unsigned long long> InputArrayFromFile(std::string Fil
                         }
                     }
                     if (!ThisNumIsCorrect) {
+                        CheckArrayFromFile.close();
                         std::cout << "Число количества элементов массива в файле " << FileName << " некорректно\n";
                         return FileInputResult;
                     }
@@ -247,17 +388,21 @@ static std::pair<double*, unsigned long long> InputArrayFromFile(std::string Fil
                         
                     }
                      
-                    if (!ThisNumIsCorrect) {
-                        std::cout << strCheckFileData[i] << '\n';
+                    if (!ThisNumIsCorrect ) {
+                        
                         std::cout << "Элемент массива под номером " << CountOfArrayElements << " некорректен\n";
+                        CheckArrayFromFile.close();
                         return FileInputResult;
                     }
                 }
-                ++CountOfArrayElements;
+                if (ThisNumIsCorrect) {
+                    ++CountOfArrayElements;
+                }
 
             }
             
         }
+        
         CheckArrayFromFile.close();
     }
     
@@ -265,8 +410,9 @@ static std::pair<double*, unsigned long long> InputArrayFromFile(std::string Fil
         std::cout << "Не удалось открыть файл для проверки содержимого, пожалуйста, попробуйте открыть его снова\n";
         return FileInputResult;
     }
-
+    
     if (CountOfArrayElements != std::stoull(strn)) {
+        std::cout << CountOfArrayElements << '\t' << std::stoull(strn);
         std::cout << "Количество заявленных элементов массива не совпадает с действительным, файл некорректен\n";
         return FileInputResult;
     }
@@ -288,9 +434,11 @@ static std::pair<double*, unsigned long long> InputArrayFromFile(std::string Fil
                 Getn = false;
             }
             else {
+                
                 FileInputResult.first[i] = std::stod(strGetData);
                 
                 ++i;
+                
             }
 
         }
@@ -311,9 +459,9 @@ static std::pair<double*, unsigned long long> UserInterfaceForFileInput(void) {
         std::string FileName;
         std::cout << "Введите название файла: ";
         std::getline(std::cin, FileName);
-        bool FileIsCorrect = FileNameCheck(FileName);
+        bool FileNameIsCorrect = FileNameCheck(FileName);
 
-        if (!FileIsCorrect) {
+        if (!FileNameIsCorrect) {
             std::cout << "Название файла некорректно, введите, пожалуйста, корректное\n";
             continue;
         }
@@ -329,7 +477,6 @@ static std::pair<double*, unsigned long long> UserInterfaceForFileInput(void) {
                 
             }
 
-            
         }
 
     }
@@ -379,7 +526,6 @@ static double * InterfaceOfnAndArrayDataInput(unsigned long long &n) {
     }
     if (!UserSelectedFileInput) {
         NewArray = new double[n] {};
-        std::cout << "Память выделена\n";
         bool UserArrayDataInput = true;
         unsigned long long UserArrayDataInputChoice = 0;
         while (UserArrayDataInput) {
@@ -411,17 +557,25 @@ static double * InterfaceOfnAndArrayDataInput(unsigned long long &n) {
 
 }
 
+void CopyArray(double* Array, unsigned long long n, double* NewArray) {
+    for (unsigned long long i = 0; i < n; i++) {
+        NewArray[i] = Array[i];
+    }
+}
+
 static void Interface(void) {
     bool UserInMenu = true;
     unsigned long long UserInMenuChoice = 0;
     double* Array = nullptr;
+    double* SortedArray = nullptr;
     unsigned long long n = 0;
     bool ArrayIsNotNullptr = false;
 
     while (UserInMenu) {
         if (ArrayIsNotNullptr) {
-            std::cout << "Память очищена\n";
+            
             delete[] Array;
+            delete[] SortedArray;
             ArrayIsNotNullptr = false;
         }
         
@@ -432,9 +586,12 @@ static void Interface(void) {
         case Start:
             ArrayIsNotNullptr = true;
             Array = InterfaceOfnAndArrayDataInput(n);
-            CombSort(Array, n);
+            SortedArray = new double[n] {};
+            CopyArray(Array, n, SortedArray);
+            CombSort(SortedArray, n);
             std::cout << "\n\n\nРезультат сортировки:\n";
-            ShowArray(Array, n);
+            ShowArray(SortedArray, n);
+            SaveArrayInFileInterface(Array, n, SortedArray);
             break;
         case Quit:
             UserInMenu = false;
