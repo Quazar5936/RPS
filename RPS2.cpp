@@ -5,7 +5,7 @@
 #include <ctime>
 #include "RPS2.h"
 
-extern "C" void CombSort_(double* Array, unsigned long long n);
+
 
 static void CombSort(double* Array, unsigned long long n) {
     double GapFactor = n / FACTOR;
@@ -175,5 +175,6 @@ int main(void){
     Interface();
     return EXIT_SUCCESS;
 }
+
 
 
