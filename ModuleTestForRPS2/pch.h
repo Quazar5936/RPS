@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 bool FileNameCheck(std::string FileName);
-std::pair<double*, unsigned long long> GetArrayFromFile(std::string FileName);
+std::pair<int*, unsigned long long> GetArrayFromFile(std::string FileName);
 void UnsignedLongLongInput(unsigned long long& n);
-void CombSort(double* Array, unsigned long long n);
+void CombSort(int* Array, unsigned long long n);
 #endif //PCH_H

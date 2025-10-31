@@ -21,15 +21,15 @@ namespace ModuleTestForRPS2 {
 
 		TEST_METHOD(ModuleTest2) {
 				std::string FileName = "Testfile.txt"; // Некорректные данные в файле
-				const std::pair<double*, unsigned long long> CorrectRes(nullptr, 0);
-				std::pair<double*, unsigned long long> Result = GetArrayFromFile(FileName);
+				const std::pair<int*, unsigned long long> CorrectRes(nullptr, 0);
+				std::pair<int*, unsigned long long> Result = GetArrayFromFile(FileName);
 				Assert::IsTrue(CorrectRes == Result);
 		}
 
 		TEST_METHOD(ModuleTest3) {
 				const unsigned long long ArrSize = 10;
-				double* TestArr = new double[ArrSize]; // {9, 8, 7, 6, 5, 4, 3, 2, 1, 0}
-				double* ResArr = new double[ArrSize]; // ожидаемый результат сортировки {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+				int* TestArr = new int[ArrSize]; // {9, 8, 7, 6, 5, 4, 3, 2, 1, 0}
+				int* ResArr = new int[ArrSize]; // ожидаемый результат сортировки {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
 				for (long i = 9, j = 0; i >= 0; i--,j++) {
 						TestArr[j] = i;
 						ResArr[j] = j;
