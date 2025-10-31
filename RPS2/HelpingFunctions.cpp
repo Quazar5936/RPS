@@ -15,13 +15,13 @@ void Greeting(void) {
     std::cout << "Добро пожаловать в программу, которая сортирует массивы сортировкой расческой!(16 Вариант)\nПрограмму сделал студент группы 444 Заиграев Семён Сергеевич\n";
 }
 
-void CopyArray(double* Array, unsigned long long n, double* NewArray) {
+void CopyArray(int* Array, unsigned long long n, int* NewArray) {
     for (unsigned long long i = 0; i < n; i++) {
         NewArray[i] = Array[i];
     }
 }
 
-void ShowArray(double* Array, unsigned long long n) {
+void ShowArray(int* Array, unsigned long long n) {
     for (unsigned long long i = 0; i < n; i++) {
         std::cout << "Элемент массива под номером " << i + 1 << ". ";
         std::cout << Array[i] << '\n';

@@ -2,18 +2,18 @@
 #include <random>
 #include <iostream>
 
-void AutoInputForArray(double* Array, unsigned long long Number, std::default_random_engine RandEngine) {
-    std::uniform_real_distribution<double> GetRandDoubleVal{ -100000,100000 };
+void AutoInputForArray(int* Array, unsigned long long Number, std::default_random_engine RandEngine) {
+    std::uniform_int_distribution<int> GetRandIntVal{ -100000,100000 };
 
     for (unsigned long long i = 0; i < Number; i++) {
         std::cout << "Ёлемент массива под номером " << i + 1 << ". ";
-        Array[i] = GetRandDoubleVal(RandEngine);
+        Array[i] = GetRandIntVal(RandEngine);
         std::cout << Array[i] << '\n';
     }
 }
 
 
-void DoubleArrayInput(double* Array, unsigned long long Number) {
+void DoubleArrayInput(int* Array, unsigned long long Number) {
     unsigned long long ArrayIndex = 0;
 
     while (ArrayIndex < Number) {

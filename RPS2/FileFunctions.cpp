@@ -72,7 +72,7 @@ static bool DeleteFileData(std::string FileName) {
     return true;
 }
 
-static bool WriteDataToFile(double* Array, unsigned long long ArraySize,std::string FileName) {
+static bool WriteDataToFile(int* Array, unsigned long long ArraySize,std::string FileName) {
 
     std::ofstream ArrayDataSaveToFile;
     ArrayDataSaveToFile.open(FileName);
@@ -99,7 +99,7 @@ static bool WriteDataToFile(double* Array, unsigned long long ArraySize,std::str
         
 }
 
-void SaveArrayToFile(double* Array, unsigned long long ArraySize) {
+void SaveArrayToFile(int* Array, unsigned long long ArraySize) {
 
     while (true) {
         unsigned long long UserEraseFileChoice = 0;
@@ -176,18 +176,17 @@ void SaveArrayToFile(double* Array, unsigned long long ArraySize) {
     
 }
 
-void SaveArraysToFile(double* Array, unsigned long long ArraySize, double* SortedArray) {
+void SaveArraysToFile(int* Array, unsigned long long ArraySize, int* SortedArray) {
     SaveArrayToFile(Array, ArraySize);
     SaveArrayToFile(SortedArray, ArraySize);
 }
 
-std::pair<double*, unsigned long long> GetArrayFromFile(std::string FileName) {
+std::pair<int*, unsigned long long> GetArrayFromFile(std::string FileName) {
     const char ZeroNumCodeBound = '0';
     const char NineNumCodeBound = '9';
     const char MinusCode = '-';
-    const char CommaCode = '.';
 
-    std::pair<double*, unsigned long long> ArrayAndArraySizeFromFile(nullptr, 0);
+    std::pair<int*, unsigned long long> ArrayAndArraySizeFromFile(nullptr, 0);
    
     bool ThisNumIsCorrect = false;
     bool ThisIsArraySizeCheck = true;
@@ -235,7 +234,7 @@ std::pair<double*, unsigned long long> GetArrayFromFile(std::string FileName) {
                 ThisNumIsCorrect = false;
                 for (char j = ZeroNumCodeBound; j <= NineNumCodeBound; j++) {
 
-                    if ((DataFromFile[i] == j) || (DataFromFile[i] == MinusCode) || (DataFromFile[i] == CommaCode)) {
+                    if ((DataFromFile[i] == j) || (DataFromFile[i] == MinusCode)) {
                         ThisNumIsCorrect = true;
                         break;
                     }
@@ -279,11 +278,11 @@ std::pair<double*, unsigned long long> GetArrayFromFile(std::string FileName) {
         if (GetArraySize) {
             GetArraySize = false;
             ArrayAndArraySizeFromFile.second = std::stoull(DataFromFile);
-            ArrayAndArraySizeFromFile.first = new double[ArrayAndArraySizeFromFile.second] {};
+            ArrayAndArraySizeFromFile.first = new int[ArrayAndArraySizeFromFile.second] {};
         }
 
         else {
-            ArrayAndArraySizeFromFile.first[IndexOfArrayElement] = std::stod(DataFromFile);
+            ArrayAndArraySizeFromFile.first[IndexOfArrayElement] = std::stoi(DataFromFile);
             ++IndexOfArrayElement;
         }
     }

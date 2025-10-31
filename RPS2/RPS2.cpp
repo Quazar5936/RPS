@@ -7,7 +7,7 @@
 #include <string>
 #include "RPS2.h"
 
-void CombSort(double* Array, unsigned long long n) {
+void CombSort(int* Array, unsigned long long n) {
     double GapFactor = n / FACTOR;
     
     while (GapFactor > 1) {
@@ -16,7 +16,7 @@ void CombSort(double* Array, unsigned long long n) {
         for (unsigned long long i = 0, j = Gap; j < n; i++, j++) {
 
             if (Array[i] > Array[j]) {
-                double temp = Array[i]; // Обмен значениями массива
+                int temp = Array[i]; // Обмен значениями массива
                 Array[i] = Array[j];
                 Array[j] = temp;
             }
@@ -26,7 +26,7 @@ void CombSort(double* Array, unsigned long long n) {
     }
 }
 
-static void SaveArrayInFileInterface(double* Array, unsigned long long ArraySize, double* SortedArray) {
+static void SaveArrayInFileInterface(int* Array, unsigned long long ArraySize, int* SortedArray) {
     unsigned long long UserLoadArrayChoice = 0;
     bool UserFileLoad = true;
 
@@ -60,8 +60,8 @@ static void SaveArrayInFileInterface(double* Array, unsigned long long ArraySize
 
 
 
-static std::pair<double*, unsigned long long> UserInterfaceForFileInput(void) {
-    std::pair<double*, unsigned long long> FileInputResult;
+static std::pair<int*, unsigned long long> UserInterfaceForFileInput(void) {
+    std::pair<int*, unsigned long long> FileInputResult;
  
     while (true) {
         std::string FileName;
@@ -89,12 +89,12 @@ static std::pair<double*, unsigned long long> UserInterfaceForFileInput(void) {
 }
 
 
-static double * InterfaceOfArrayAndArraySizeInput(unsigned long long &ArraySize) {
+static int * InterfaceOfArrayAndArraySizeInput(unsigned long long &ArraySize) {
     unsigned long long UserArraySizeInputChoice = 0;
     std::uniform_int_distribution<unsigned long long> GetRandVal{ 1,1000 };
     std::default_random_engine RandEngine{ static_cast<unsigned int> (time(NULL))};
-    std::pair<double*, unsigned long long> PairForFileInput;
-    double* NewArray = nullptr;
+    std::pair<int*, unsigned long long> PairForFileInput;
+    int* NewArray = nullptr;
     bool UserSelectedFileInput = false;
     bool UserArraySizeInput = true;
 
@@ -129,7 +129,7 @@ static double * InterfaceOfArrayAndArraySizeInput(unsigned long long &ArraySize)
     }
     
     if (!UserSelectedFileInput) {
-        NewArray = new double[ArraySize] {};
+        NewArray = new int[ArraySize] {};
         unsigned long long UserArrayDataInputChoice = 0;
 
         while (true) {
@@ -162,8 +162,8 @@ static double * InterfaceOfArrayAndArraySizeInput(unsigned long long &ArraySize)
 static void MainInterface(void) {
     Greeting();
     unsigned long long UserInMainInterfaceChoice = 0;
-    double* Array = nullptr;
-    double* SortedArray = nullptr;
+    int* Array = nullptr;
+    int* SortedArray = nullptr;
     unsigned long long ArraySize = 0;
     bool ArrayIsNotNullptr = false;
 
@@ -184,7 +184,7 @@ static void MainInterface(void) {
         case Start:
             ArrayIsNotNullptr = true;
             Array = InterfaceOfArrayAndArraySizeInput(ArraySize);
-            SortedArray = new double[ArraySize] {};
+            SortedArray = new int[ArraySize] {};
             CopyArray(Array, ArraySize, SortedArray);
             CombSort(SortedArray, ArraySize);
             std::cout << "\n\n\nРезультат сортировки:\n";
