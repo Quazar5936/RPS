@@ -1,4 +1,4 @@
-#include <iostream>
+п»ї#include <iostream>
 #include <fstream>
 #include <vector>
 #include <string>
@@ -16,7 +16,7 @@ bool FileNameCheck(std::string Path) {
     const std::string MinShortForbiddenCombination = "CON";
     std::string FileName = "";
     size_t j = Path.size();
-    const std::string StopSymbols{ 47,92 };// символы \/
+    const std::string StopSymbols{ 47,92 };// СЃРёРјРІРѕР»С‹ \/
 
     if (Path.size() < MinShortForbiddenCombination.size()) {
         return true;
@@ -34,7 +34,7 @@ bool FileNameCheck(std::string Path) {
         }
 
         const std::string MaxLongForbiddenCombination = "COMSCSI.txt";
-        const std::string ForbiddenSymbols{ 47,92,60,62,58,34,124,42,63 }; // Запрещенные символы /\<>:"|*?
+        const std::string ForbiddenSymbols{ 47,92,60,62,58,34,124,42,63 }; // Р—Р°РїСЂРµС‰РµРЅРЅС‹Рµ СЃРёРјРІРѕР»С‹ /\<>:"|*?
 
         if (FileName.size() > MaxLongForbiddenCombination.size()) {
             return true;
@@ -44,7 +44,7 @@ bool FileNameCheck(std::string Path) {
             for (size_t k = 0; k < ForbiddenSymbols.size(); k++) {
 
                 if (FileName[i] == ForbiddenSymbols[k]) {
-                    std::cout << "Недопустимое имя файла\n";
+                    std::cout << "РќРµРґРѕРїСѓСЃС‚РёРјРѕРµ РёРјСЏ С„Р°Р№Р»Р°\n";
                     return false;
                 }
             }
@@ -65,7 +65,7 @@ static bool DeleteFileData(std::string FileName) {
     std::ofstream FileDataDeleter(FileName, std::ios::trunc);
 
     if (!FileDataDeleter.is_open()) {
-        std::cout << "Стереть данные из файла не удалось, выберите другой файл для записи или попробуйте снова\n";
+        std::cout << "РЎС‚РµСЂРµС‚СЊ РґР°РЅРЅС‹Рµ РёР· С„Р°Р№Р»Р° РЅРµ СѓРґР°Р»РѕСЃСЊ, РІС‹Р±РµСЂРёС‚Рµ РґСЂСѓРіРѕР№ С„Р°Р№Р» РґР»СЏ Р·Р°РїРёСЃРё РёР»Рё РїРѕРїСЂРѕР±СѓР№С‚Рµ СЃРЅРѕРІР°\n";
         return false;
     }
     FileDataDeleter.close();
@@ -79,7 +79,7 @@ static bool WriteDataToFile(int* Array, unsigned long long ArraySize,std::string
 
     if (!ArrayDataSaveToFile.is_open()) {
         std::cout << FileName << '\n';
-        std::cout << "Файл для записи не открыт, попробуйте ввести название файла снова\n";
+        std::cout << "Р¤Р°Р№Р» РґР»СЏ Р·Р°РїРёСЃРё РЅРµ РѕС‚РєСЂС‹С‚, РїРѕРїСЂРѕР±СѓР№С‚Рµ РІРІРµСЃС‚Рё РЅР°Р·РІР°РЅРёРµ С„Р°Р№Р»Р° СЃРЅРѕРІР°\n";
         return false;
     }
     ArrayDataSaveToFile << std::to_string(ArraySize);
@@ -94,7 +94,7 @@ static bool WriteDataToFile(int* Array, unsigned long long ArraySize,std::string
     }
 
     ArrayDataSaveToFile.close();
-    std::cout << "Данные успешно записаны в файл...\n";
+    std::cout << "Р”Р°РЅРЅС‹Рµ СѓСЃРїРµС€РЅРѕ Р·Р°РїРёСЃР°РЅС‹ РІ С„Р°Р№Р»...\n";
     return true;
         
 }
@@ -107,12 +107,12 @@ void SaveArrayToFile(int* Array, unsigned long long ArraySize) {
         bool DataIsDeleted = false;
         std::string FileName;
 
-        std::cout << "Введите название файла: ";
+        std::cout << "Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ С„Р°Р№Р»Р°: ";
         std::getline(std::cin, FileName);
         bool FileNameIsCorrect = FileNameCheck(FileName);
 
         if (!FileNameIsCorrect) {
-            std::cout << "Название файла некорректно, введите, пожалуйста, корректное\n";
+            std::cout << "РќР°Р·РІР°РЅРёРµ С„Р°Р№Р»Р° РЅРµРєРѕСЂСЂРµРєС‚РЅРѕ, РІРІРµРґРёС‚Рµ, РїРѕР¶Р°Р»СѓР№СЃС‚Р°, РєРѕСЂСЂРµРєС‚РЅРѕРµ\n";
             continue;
         }
         std::ifstream CheckFileData(FileName);
@@ -130,7 +130,7 @@ void SaveArrayToFile(int* Array, unsigned long long ArraySize) {
 
         if (CheckFileData.tellg() == 0) {
             CheckFileData.close();
-            std::cout << "Файл пуст, приступаю к записи...\n";
+            std::cout << "Р¤Р°Р№Р» РїСѓСЃС‚, РїСЂРёСЃС‚СѓРїР°СЋ Рє Р·Р°РїРёСЃРё...\n";
             DataIsWrittenToFile = WriteDataToFile(Array, ArraySize, FileName);
 
             if (!DataIsWrittenToFile) {
@@ -144,8 +144,8 @@ void SaveArrayToFile(int* Array, unsigned long long ArraySize) {
             CheckFileData.close();
 
             while (!DataIsDeleted) {
-                std::cout << "Файл не пуст, стереть содержимое?\n1 - Да, cтереть\n2 - Нет, не стирать\n";
-                std::cout << "Ваш выбор: ";
+                std::cout << "Р¤Р°Р№Р» РЅРµ РїСѓСЃС‚, СЃС‚РµСЂРµС‚СЊ СЃРѕРґРµСЂР¶РёРјРѕРµ?\n1 - Р”Р°, cС‚РµСЂРµС‚СЊ\n2 - РќРµС‚, РЅРµ СЃС‚РёСЂР°С‚СЊ\n";
+                std::cout << "Р’Р°С€ РІС‹Р±РѕСЂ: ";
                 UnsignedLongLongInput(UserEraseFileChoice);
                 switch (UserEraseFileChoice) {
 
@@ -153,7 +153,7 @@ void SaveArrayToFile(int* Array, unsigned long long ArraySize) {
                     DataIsDeleted = DeleteFileData(FileName);
 
                     if (DataIsDeleted) {
-                        std::cout << "Данные стерты из файла, начинаю запись...\n";
+                        std::cout << "Р”Р°РЅРЅС‹Рµ СЃС‚РµСЂС‚С‹ РёР· С„Р°Р№Р»Р°, РЅР°С‡РёРЅР°СЋ Р·Р°РїРёСЃСЊ...\n";
                         DataIsWrittenToFile = WriteDataToFile(Array, ArraySize, FileName);
                         
                         if (DataIsWrittenToFile) {
@@ -167,7 +167,7 @@ void SaveArrayToFile(int* Array, unsigned long long ArraySize) {
                     DataIsDeleted = true;
                     break;
                 default:
-                    std::cout << "Такого пункта не существует\n";
+                    std::cout << "РўР°РєРѕРіРѕ РїСѓРЅРєС‚Р° РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚\n";
                 }
             }
         }
@@ -198,7 +198,7 @@ std::pair<int*, unsigned long long> GetArrayFromFile(std::string FileName) {
     CheckArrayFromFile.open(FileName);
 
     if (!CheckArrayFromFile.is_open()) {
-        std::cout << "Не удалось открыть файл для проверки содержимого, пожалуйста, попробуйте открыть его снова\n";
+        std::cout << "РќРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р» РґР»СЏ РїСЂРѕРІРµСЂРєРё СЃРѕРґРµСЂР¶РёРјРѕРіРѕ, РїРѕР¶Р°Р»СѓР№СЃС‚Р°, РїРѕРїСЂРѕР±СѓР№С‚Рµ РѕС‚РєСЂС‹С‚СЊ РµРіРѕ СЃРЅРѕРІР°\n";
         return ArrayAndArraySizeFromFile;
     }
 
@@ -220,7 +220,7 @@ std::pair<int*, unsigned long long> GetArrayFromFile(std::string FileName) {
 
                 if (!ThisNumIsCorrect) {
                     CheckArrayFromFile.close();
-                    std::cout << "Число количества элементов массива в файле " << FileName << " некорректно\n";
+                    std::cout << "Р§РёСЃР»Рѕ РєРѕР»РёС‡РµСЃС‚РІР° СЌР»РµРјРµРЅС‚РѕРІ РјР°СЃСЃРёРІР° РІ С„Р°Р№Р»Рµ " << FileName << " РЅРµРєРѕСЂСЂРµРєС‚РЅРѕ\n";
                     return ArrayAndArraySizeFromFile;
                 }
             }
@@ -241,7 +241,7 @@ std::pair<int*, unsigned long long> GetArrayFromFile(std::string FileName) {
                 }
 
                 if (!ThisNumIsCorrect) {
-                    std::cout << "Элемент массива под номером " << CountOfArrayElements << " некорректен\n";
+                    std::cout << "Р­Р»РµРјРµРЅС‚ РјР°СЃСЃРёРІР° РїРѕРґ РЅРѕРјРµСЂРѕРј " << CountOfArrayElements << " РЅРµРєРѕСЂСЂРµРєС‚РµРЅ\n";
                     CheckArrayFromFile.close();
                     return ArrayAndArraySizeFromFile;
                 }
@@ -257,18 +257,18 @@ std::pair<int*, unsigned long long> GetArrayFromFile(std::string FileName) {
     
     if (CountOfArrayElements != std::stoull(ArraySizeStr)) {
         std::cout << CountOfArrayElements << '\t' << std::stoull(ArraySizeStr);
-        std::cout << "Количество заявленных элементов массива не совпадает с действительным, файл некорректен\n";
+        std::cout << "РљРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°СЏРІР»РµРЅРЅС‹С… СЌР»РµРјРµРЅС‚РѕРІ РјР°СЃСЃРёРІР° РЅРµ СЃРѕРІРїР°РґР°РµС‚ СЃ РґРµР№СЃС‚РІРёС‚РµР»СЊРЅС‹Рј, С„Р°Р№Р» РЅРµРєРѕСЂСЂРµРєС‚РµРЅ\n";
         return ArrayAndArraySizeFromFile;
     }
 
-    std::cout << "Содержимое файла корректно...\n";
+    std::cout << "РЎРѕРґРµСЂР¶РёРјРѕРµ С„Р°Р№Р»Р° РєРѕСЂСЂРµРєС‚РЅРѕ...\n";
 
     std::ifstream GetArrayFromFile(FileName);
     bool GetArraySize = true;
     unsigned long long IndexOfArrayElement = 0;
 
     if (!GetArrayFromFile.is_open()) {
-        std::cout << "Не удалось открыть файл для записи в массив\n";
+        std::cout << "РќРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р» РґР»СЏ Р·Р°РїРёСЃРё РІ РјР°СЃСЃРёРІ\n";
         return ArrayAndArraySizeFromFile;
     }
     

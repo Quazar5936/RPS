@@ -1,4 +1,4 @@
-#include <limits>
+ï»¿#include <limits>
 #include <random>
 #include <iostream>
 
@@ -6,7 +6,7 @@ void AutoInputForArray(int* Array, unsigned long long Number, std::default_rando
     std::uniform_int_distribution<int> GetRandIntVal{ -100000,100000 };
 
     for (unsigned long long i = 0; i < Number; i++) {
-        std::cout << "Ýëåìåíò ìàññèâà ïîä íîìåðîì " << i + 1 << ". ";
+        std::cout << "Ð­Ð»ÐµÐ¼ÐµÐ½Ñ‚ Ð¼Ð°ÑÑÐ¸Ð²Ð° Ð¿Ð¾Ð´ Ð½Ð¾Ð¼ÐµÑ€Ð¾Ð¼ " << i + 1 << ". ";
         Array[i] = GetRandIntVal(RandEngine);
         std::cout << Array[i] << '\n';
     }
@@ -17,13 +17,13 @@ void DoubleArrayInput(int* Array, unsigned long long Number) {
     unsigned long long ArrayIndex = 0;
 
     while (ArrayIndex < Number) {
-        std::cout << "Ýëåìåíò ìàññèâà ïîä íîìåðîì " << ArrayIndex + 1 << ". ";
+        std::cout << "Ð­Ð»ÐµÐ¼ÐµÐ½Ñ‚ Ð¼Ð°ÑÑÐ¸Ð²Ð° Ð¿Ð¾Ð´ Ð½Ð¾Ð¼ÐµÑ€Ð¾Ð¼ " << ArrayIndex + 1 << ". ";
         std::cin >> Array[ArrayIndex];
 
         while (std::cin.fail()) {
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "Âû ââåëè íåêîððåêòíûå äàííûå, ïîæàëóéñòà, ïîâòîðèòå ââîä: ";
+            std::cout << "Ð’Ñ‹ Ð²Ð²ÐµÐ»Ð¸ Ð½ÐµÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ñ‹Ðµ Ð´Ð°Ð½Ð½Ñ‹Ðµ, Ð¿Ð¾Ð¶Ð°Ð»ÑƒÐ¹ÑÑ‚Ð°, Ð¿Ð¾Ð²Ñ‚Ð¾Ñ€Ð¸Ñ‚Ðµ Ð²Ð²Ð¾Ð´: ";
             std::cin >> Array[ArrayIndex];
         }
         std::cin.clear();
@@ -39,7 +39,7 @@ void UnsignedLongLongInput(unsigned long long& Number) {
     while (std::cin.fail() || Number <= 0) {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "Âû ââåëè íåêîððåêòíûå äàííûå, ïîæàëóéñòà, ïîâòîðèòå ââîä: ";
+        std::cout << "Ð’Ñ‹ Ð²Ð²ÐµÐ»Ð¸ Ð½ÐµÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ñ‹Ðµ Ð´Ð°Ð½Ð½Ñ‹Ðµ, Ð¿Ð¾Ð¶Ð°Ð»ÑƒÐ¹ÑÑ‚Ð°, Ð¿Ð¾Ð²Ñ‚Ð¾Ñ€Ð¸Ñ‚Ðµ Ð²Ð²Ð¾Ð´: ";
         std::cin >> Number;
     }
     std::cin.clear();

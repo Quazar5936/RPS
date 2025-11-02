@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <vector>
 #include <string>
 
@@ -12,7 +12,7 @@ std::string GetUpperString(std::string String) {
 }
 
 void Greeting(void) {
-    std::cout << "Äîáðî ïîæàëîâàòü â ïðîãðàììó, êîòîðàÿ ñîðòèðóåò ìàññèâû ñîðòèðîâêîé ðàñ÷åñêîé!(16 Âàðèàíò)\nÏðîãðàììó ñäåëàë ñòóäåíò ãðóïïû 444 Çàèãðàåâ Ñåì¸í Ñåðãååâè÷\n";
+    std::cout << "Ð”Ð¾Ð±Ñ€Ð¾ Ð¿Ð¾Ð¶Ð°Ð»Ð¾Ð²Ð°Ñ‚ÑŒ Ð² Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ñƒ, ÐºÐ¾Ñ‚Ð¾Ñ€Ð°Ñ ÑÐ¾Ñ€Ñ‚Ð¸Ñ€ÑƒÐµÑ‚ Ð¼Ð°ÑÑÐ¸Ð²Ñ‹ ÑÐ¾Ñ€Ñ‚Ð¸Ñ€Ð¾Ð²ÐºÐ¾Ð¹ Ñ€Ð°ÑÑ‡ÐµÑÐºÐ¾Ð¹!(16 Ð’Ð°Ñ€Ð¸Ð°Ð½Ñ‚)\nÐŸÑ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ñƒ ÑÐ´ÐµÐ»Ð°Ð» ÑÑ‚ÑƒÐ´ÐµÐ½Ñ‚ Ð³Ñ€ÑƒÐ¿Ð¿Ñ‹ 444 Ð—Ð°Ð¸Ð³Ñ€Ð°ÐµÐ² Ð¡ÐµÐ¼Ñ‘Ð½ Ð¡ÐµÑ€Ð³ÐµÐµÐ²Ð¸Ñ‡\n";
 }
 
 void CopyArray(int* Array, unsigned long long n, int* NewArray) {
@@ -23,7 +23,7 @@ void CopyArray(int* Array, unsigned long long n, int* NewArray) {
 
 void ShowArray(int* Array, unsigned long long n) {
     for (unsigned long long i = 0; i < n; i++) {
-        std::cout << "Ýëåìåíò ìàññèâà ïîä íîìåðîì " << i + 1 << ". ";
+        std::cout << "Ð­Ð»ÐµÐ¼ÐµÐ½Ñ‚ Ð¼Ð°ÑÑÐ¸Ð²Ð° Ð¿Ð¾Ð´ Ð½Ð¾Ð¼ÐµÑ€Ð¾Ð¼ " << i + 1 << ". ";
         std::cout << Array[i] << '\n';
     }
 }

@@ -1,4 +1,4 @@
-
+п»ї
 #include "pch.h"
 #include "CppUnitTest.h"
 #include "..\RPS2\FileFunctions.cpp"
@@ -13,14 +13,14 @@ namespace ModuleTestForRPS2 {
 	public:
 		
 		TEST_METHOD(ModuleTest1) {
-				std::string FileNameForTest1 = "con.txt"; // Проверка на недопустимое имя
+				std::string FileNameForTest1 = "con.txt"; // РџСЂРѕРІРµСЂРєР° РЅР° РЅРµРґРѕРїСѓСЃС‚РёРјРѕРµ РёРјСЏ
 				bool FileNameIsCorrect = FileNameCheck(FileNameForTest1);
 				const bool CorrectResult = false;
 				Assert::IsTrue(FileNameIsCorrect == CorrectResult);
 		}
 
 		TEST_METHOD(ModuleTest2) {
-				std::string FileName = "Testfile.txt"; // Некорректные данные в файле
+				std::string FileName = "Testfile.txt"; // РќРµРєРѕСЂСЂРµРєС‚РЅС‹Рµ РґР°РЅРЅС‹Рµ РІ С„Р°Р№Р»Рµ
 				const std::pair<int*, unsigned long long> CorrectRes(nullptr, 0);
 				std::pair<int*, unsigned long long> Result = GetArrayFromFile(FileName);
 				Assert::IsTrue(CorrectRes == Result);
@@ -29,7 +29,7 @@ namespace ModuleTestForRPS2 {
 		TEST_METHOD(ModuleTest3) {
 				const unsigned long long ArrSize = 10;
 				int* TestArr = new int[ArrSize]; // {9, 8, 7, 6, 5, 4, 3, 2, 1, 0}
-				int* ResArr = new int[ArrSize]; // ожидаемый результат сортировки {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+				int* ResArr = new int[ArrSize]; // РѕР¶РёРґР°РµРјС‹Р№ СЂРµР·СѓР»СЊС‚Р°С‚ СЃРѕСЂС‚РёСЂРѕРІРєРё {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
 				for (long i = 9, j = 0; i >= 0; i--,j++) {
 						TestArr[j] = i;
 						ResArr[j] = j;
@@ -48,7 +48,7 @@ namespace ModuleTestForRPS2 {
 				delete[] ResArr;
 				ResArr = nullptr;
 				Assert::IsTrue(ArraysAreEqual == TestResult);
-				Logger::WriteMessage(L"Тестирование прошло успешно\n");
+				Logger::WriteMessage(L"РўРµСЃС‚РёСЂРѕРІР°РЅРёРµ РїСЂРѕС€Р»Рѕ СѓСЃРїРµС€РЅРѕ\n");
 		}
 	};
 }

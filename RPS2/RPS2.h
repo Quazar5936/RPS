@@ -1,4 +1,4 @@
-#ifndef RPS2_H
+﻿#ifndef RPS2_H
 #define RPS2_H
 
 constexpr double FACTOR = 1.247;
