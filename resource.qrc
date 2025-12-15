@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+	<file>Photos/main_icon.png</file>
+        <file>Photos/darkth.png</file>
+	<file>Photos/door_exit.png</file>
+	<file>Photos/angle.png</file>
+	<file>Photos/leftacc.png</file>
+    </qresource>
+</RCC>
